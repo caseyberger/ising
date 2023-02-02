@@ -1,6 +1,6 @@
 // Casey Berger
 // Created: May 7 2014
-// Last edited: May 29, 2014
+// Last edited: Feb 2, 2023 (updated for Smith cluster!)
 //
 //second attempt - starting from scratch
 //using j = 1.0 and h = 0.0
@@ -242,7 +242,7 @@ void exact_sol(vector<double> &exact_E)
 {
     //cout << "exact_sol" << endl;
     //reads in data from the file and puts it into the exact_E vector
-    string fname = "/Users/Casey/Dropbox/REU Project 2014 Casey/Codes/exact_ising_sol.txt";
+    string fname = "exact_ising_sol.txt";
     ifstream fin;
     //open file
     fin.open(fname.c_str(),ios::in);
@@ -304,7 +304,7 @@ void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double>
 {
     //cout << "write_to_file" << endl;
     //output both solutions to a .txt file to open in gnuplot
-    string fname = "/Users/Casey/Dropbox/REU Project 2014 Casey/Codes/mc_ising_data.txt";
+    string fname = "mc_ising_data.txt";
     ofstream fout; //output stream
     fout.open(fname.c_str(),ios::out);
     
