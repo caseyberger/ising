@@ -1,7 +1,7 @@
 // Casey Berger
 // Created: May 24 2023
 // Last edited: May 24, 2023
-#include <stdlib.h>
+#include <cstdlib.h>
 #include "lattice.h"
 
 namespace ising {
@@ -33,7 +33,7 @@ namespace ising {
         int len = Lattice::getLength();
         for(int i = 0; i < len; i++){
             for (int j = 0; j<len; j++){
-                std::cout << grid[i][j] << ",";
+                std::cout << grid_[i][j] << ",";
             }
             std::endl;
         }
