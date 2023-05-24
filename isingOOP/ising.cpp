@@ -45,8 +45,7 @@ void equilibrate(int (&Lattice)[len][len], double T);
 
 int main ()
 {
-    Lattice L;
-    L.setLength(len);
+    Lattice L(len);
     cout << "Length of lattice L = " << L.getLength() << endl;
     srand(7); //seed random number
     L.initialize();
