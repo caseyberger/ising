@@ -14,7 +14,7 @@ namespace ising {
     int Lattice::getLength(){
         return length_;
     }
-    void initialize(){
+    void Lattice::initialize(){
         int len = Lattice::getLength();
         int ** grid = new int*[len];
         for(int i = 0; i < len; i++){
