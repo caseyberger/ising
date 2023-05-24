@@ -19,7 +19,7 @@ TARGET = ising
 # Instructions to compile and link 
 
 $(TARGET): ising.o lattice.o 
-	$(CXX) $(CXXFLAGS) -o $(TARGET) lattice.o
+	$(CXX) $(CXXFLAGS) -o $(TARGET) ising.o lattice.o
                  
 ising.o : ising.cpp lattice.h
 	$(CXX) $(CXXFLAGS) -c ising.cpp
