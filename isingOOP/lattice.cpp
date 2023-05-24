@@ -1,7 +1,6 @@
 // Casey Berger
 // Created: May 24 2023
 // Last edited: May 24, 2023
-#include <cstdlib.h>
 #include <iostream>
 
 #include "lattice.h"
