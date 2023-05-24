@@ -5,7 +5,7 @@
 
 namespace ising {
     int Lattice::getLength(){
-        return length_ * length_;
+        return length_;
     }
     void Lattice::setLength(int length){
         length_ = length;
