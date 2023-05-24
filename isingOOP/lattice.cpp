@@ -48,10 +48,10 @@ namespace ising {
         int *nn = Lattice::getNeighbors_(i,j);
         std::cout << "i,j = " << i << "," << j << std::endl;
         std::cout << "nn = " << std::endl;
-        std::cout<< nn[0][0] << "," << nn[0][1] << std::endl;
-        std::cout<< nn[1][0] << "," << nn[1][1] << std::endl;
-        std::cout<< nn[2][0] << "," << nn[2][1] << std::endl;
-        std::cout<< nn[3][0] << "," << nn[3][1] << std::endl;
+        std::cout<< nn[0] << "," << nn[1] << std::endl;
+        std::cout<< nn[2] << "," << nn[3] << std::endl;
+        std::cout<< nn[4] << "," << nn[5] << std::endl;
+        std::cout<< nn[6] << "," << nn[7] << std::endl;
         
         double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
         return - interactionJ_ * grid_[i][j] * nnsum;
@@ -71,7 +71,7 @@ namespace ising {
     }
     
     int* Lattice::getNeighbors_(int i, int j){
-        int *nn[8];
+        int nn[8];
         nn[0] = Lattice::plusOne_(i);
         nn[1] = j;
         nn[2] = i;
