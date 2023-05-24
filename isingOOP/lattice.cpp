@@ -36,8 +36,7 @@ namespace ising {
             for (int j = 0; j<len; j++){
                 std::cout << grid_[i][j] << ",";
             }
-            std::endl;
+            std::cout << std::endl;
         }
     }
-    
 }
