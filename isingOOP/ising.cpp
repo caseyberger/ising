@@ -52,7 +52,7 @@ int main ()
     L.printLattice();
     for(int i = 0; i < len; i++){
         for (int j = 0; j<len; j++){
-            cout << "local energy: " << L.localEnergy(i,j) <<endl;
+            double Eloc = L.localEnergy(i,j);
         }
     }
     /*
