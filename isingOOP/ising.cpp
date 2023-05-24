@@ -32,7 +32,6 @@ const int eq_iter = 1000; //number of iterations for equilibration
 double J = 1.0; //interaction strength
 
 //function declaration
-void make_lattice(int (&Lattice)[len][len]);
 double calc_E(int Lattice[len][len], int i, int j);
 void flip_spin(int (&Lattice)[len][len], int i, int j, double T, double &dE);
 double tot_E(int Lattice[len][len]);
@@ -51,6 +50,11 @@ int main ()
     L.initialize();
     cout << "Initialized"<<endl;
     L.printLattice();
+    for(int i = 0; i < len; i++){
+        for (int j = 0; j<len; j++){
+            cout << "local energy: " << L.localEnergy(i,j) <<endl;
+        }
+    }
     /*
     srand(time(NULL)); //seed random number
     vector<double> exact_E; //stores exact solution
@@ -64,22 +68,6 @@ int main ()
     return 0;
 }
 
-void make_lattice(int (&Lattice)[len][len])
-{
-    //cout << "make_lattice" << endl;
-    //generates random configuration
-    for (int i = 0; i<len; i++)
-    {
-        for (int j = 0; j<len; j++)
-        {
-            double r = ((double)rand())/((double)RAND_MAX);
-            if (r<0.5)
-            {Lattice[i][j] = -1;}
-            else
-            {Lattice[i][j] = 1;}
-        }
-    }
-}
 
 double calc_E(int Lattice[len][len], int i, int j)
 {
