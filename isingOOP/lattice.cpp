@@ -3,14 +3,16 @@
 // Last edited: May 24, 2023
 #include <iostream> //cout, endl
 #include <iomanip> //setw
+#include <vector>
 
 #include "lattice.h"
 
 namespace ising {
     //public functions
-    Lattice::Lattice(int length, double J){
+    Lattice::Lattice(int length, double J, double kBT){
         Lattice::setLength(length); //set length
         interactionJ_ = J; //set J (do I need to do this the same way I do length?)
+        kBT_ = kBT;
     }
     void Lattice::setLength(int length){
         length_ = length;
@@ -43,36 +45,7 @@ namespace ising {
         }
     }
     
-    double Lattice::localEnergy(int i, int j){
-        int *nnSpins = Lattice::getNeighborSpins_(i,j);
-        int *nn = Lattice::getNeighbors_(i,j);
-        std::cout << "i,j = " << i << "," << j << std::endl;
-        std::cout << "nn = " << std::endl;
-        std::cout<< nn[0] << "," << nn[1] << std::endl;
-        std::cout<< nn[2] << "," << nn[3] << std::endl;
-        std::cout<< nn[4] << "," << nn[5] << std::endl;
-        std::cout<< nn[6] << "," << nn[7] << std::endl;
-        
-        double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
-        double Eloc = (-1.*interactionJ_ * grid_[i][j] * nnsum);
-        std::cout << "Eloc = " << Eloc <<  std::endl;
-        return Eloc;
-    }
-    
-    
-    //private functions
-    int Lattice::plusOne_(int i){
-        //int len = Lattice::getLength();
-        if(i+1 == length_){ return 0;}
-        else{return i+1;}
-    }
-    
-    int Lattice::minusOne_(int i){
-        if(i == 0){ return length_-1;}
-        else{return i-1;}
-    }
-    
-    int* Lattice::getNeighbors_(int i, int j){
+    int* Lattice::getNeighbors(int i, int j){
         static int nn[8];
         nn[0] = Lattice::plusOne_(i);
         nn[1] = j;
@@ -85,12 +58,76 @@ namespace ising {
         return nn;
     }
     
-    int* Lattice::getNeighborSpins_(int i, int j){
+    int* Lattice::getNeighborSpins(int i, int j){
         static int nnSpins[4];
         nnSpins[0] = grid_[Lattice::plusOne_(i)][j];
         nnSpins[1] = grid_[i][Lattice::plusOne_(j)];
         nnSpins[2] = grid_[Lattice::minusOne_(i)][j];
         nnSpins[3] = grid_[i][Lattice::minusOne_(j)];
         return nnSpins;
+    }
+    
+    double Lattice::localEnergy(int i, int j){
+        int *nnSpins = Lattice::getNeighborSpins_(i,j);
+        double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
+        double Eloc = (-1.*interactionJ_ * grid_[i][j] * nnsum);
+        std::cout << "Eloc = " << Eloc <<  std::endl;
+        return Eloc;
+    }
+    
+    double Lattice::Energy(){
+        double Energy;
+        for(int i = 0; i < length_; i++){
+            for (int j = 0; j<length_; j++){
+                Energy += Lattice::localEnergy(i,j);
+            }
+        }
+        return Energy;
+    }
+    
+    void Lattice::metropolisLoop(int nMC, vector<double> &mc_E){
+        //adds energy for individual configurations to a vector so we can do stats for that temperature
+        for (int n = 0; n < nMC; n++){
+            Lattice::sweepLattice_(); //iterate over the whole lattice, flipping spins if favorable
+            mc_E.push_back(Lattice::Energy())
+        }
+    }
+    
+    //private functions
+    int Lattice::plusOne_(int i){
+        //int len = Lattice::getLength();
+        if(i+1 == length_){ return 0;}
+        else{return i+1;}
+    }
+    
+    int Lattice::minusOne_(int i){
+        if(i == 0){ return length_-1;}
+        else{return i-1;}
+    }
+        
+    void Lattice::flipSpin_(int i, int j){
+        double E_init = Lattice::localEnergy(int i, int j);
+        double dE = -2.*Einit;
+        double r = ((double) std::rand())/((double) RAND_MAX);
+        if (dE < 0){
+            grid_[i][j] = -1 * grid_[i][j];
+        }
+        else{
+            if (r<=exp(-1.0*dE/kBT_)){
+                grid_[i][j] = -1*grid_[i][j];
+            }
+            else{
+                dE = 0.0;
+            }
+        }
+    }
+    
+    void Lattice::sweepLattice_(){
+        //consider making two arrays for i and j, which are shuffled orders of the indices
+        for(int i = 0; i < length_; i++){
+            for (int j = 0; j<length_; j++){
+                Lattice::flipSpin_(i, j);
+            }
+        }
     }
 }

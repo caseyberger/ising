@@ -27,7 +27,7 @@ const int num = len*len;  //total number of spins
 double Tmax = 5.0;  //max temp
 double Tmin = 0.0; //min temp
 double dT = 0.2; //temperature iterator
-const int mc_iter = 1000000; //number of monte carlo iterations
+const int nMC = 1000000; //number of monte carlo iterations
 const int eq_iter = 1000; //number of iterations for equilibration
 double J = 1.0; //interaction strength
 
@@ -44,17 +44,14 @@ void equilibrate(int (&Lattice)[len][len], double T);*/
 
 int main ()
 {
-    Lattice L(len, J);
+    Lattice L(len, J, Tmax);
     cout << "Length of lattice L = " << L.getLength() << endl;
     srand(7); //seed random number
     L.initialize();
     cout << "Initialized"<<endl;
     L.printLattice();
-    for(int i = 0; i < len; i++){
-        for (int j = 0; j<len; j++){
-            double Eloc = L.localEnergy(i,j);
-        }
-    }
+    vector<double> mc_E; //stores energies for monte carlo loop at one T
+    L.metropolisLoop(int nMC, vector<double> &mc_E);
     /*
     srand(time(NULL)); //seed random number
     vector<double> exact_E; //stores exact solution
@@ -69,81 +66,6 @@ int main ()
 }
 
 /*
-double calc_E(int Lattice[len][len], int i, int j)
-{
-    //cout << "calc_E" << endl;
-    //calculates energy at a particular point (i,j) on the lattice
-    double Energy = 0.0;
-    if (i == 0 && j == 0)
-    {Energy = -1.0*J*Lattice[i][j]*(Lattice[l_end][j]+Lattice[i][l_end]+Lattice[i+1][j]+Lattice[i][j+1]);}
-    else if (i == 0 && j != 0)
-    {
-        if (j == l_end)
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[l_end][j]+Lattice[i][j-1]+Lattice[i+1][j]+Lattice[i][0]);}
-        else
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[l_end][j]+Lattice[i][j-1]+Lattice[i+1][j]+Lattice[i][j+1]);}
-    }
-    else if (i != 0 && j == 0)
-    {
-        if (i == l_end)
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[i-1][j]+Lattice[i][j-1]+Lattice[0][j]+Lattice[i][j+1]);}
-        else
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[i-1][j]+Lattice[i][l_end]+Lattice[i+1][j]+Lattice[i][j+1]);}
-    }
-    else if (i != 0 && j != 0)
-    {
-        if (i==l_end && j == l_end)
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[i-1][j]+Lattice[i][j-1]+Lattice[0][j]+Lattice[i][0]);}
-        else if (i == l_end && j != l_end)
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[i-1][j]+Lattice[i][j-1]+Lattice[0][j]+Lattice[i][j+1]);}
-        else if (i != l_end && j == l_end)
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[i-1][j]+Lattice[i][j-1]+Lattice[i+1][j]+Lattice[i][0]);}
-        else if (i != l_end && j != l_end)
-        {Energy = -1.0*J*Lattice[i][j]*(Lattice[i-1][j]+Lattice[i][j-1]+Lattice[i+1][j]+Lattice[i][j+1]);}
-    }
-    if (Energy == -0)
-    {return 0;}
-    else
-    {return Energy;}
-}
-
-void flip_spin(int (&Lattice)[len][len], int i, int j, double T, double &dE)
-{
-    //cout << "flip_spin" << endl;
-    //flips spin if correct conditions are met
-    double E0 = calc_E(Lattice, i, j); //calculate initial energy at that site
-    double Ef = -1.0*E0;
-    dE = Ef-E0;
-    //cout << "dE = " << dE << endl;
-    double r = ((double)rand())/((double)RAND_MAX);
-    if (Ef <= E0)
-    {Lattice[i][j] = -1*Lattice[i][j];}
-    else
-    {
-        if (r<=exp(-1.0*dE/T))
-        {Lattice[i][j] = -1*Lattice[i][j];}
-        else
-        {dE = 0.0;}
-    }
-}
-
-double tot_E(int Lattice[len][len])
-{
-    //cout << "tot_E" << endl;
-    //calculates energy of entire configuration
-    double Energy = 0.0;
-    //J = -1.0*J;
-    double dE = 0.0;
-    for (int i = 0; i < len; i++)
-    {
-        for (int j = 0; j < len; j++)
-        {
-            dE  = calc_E(Lattice, i, j);
-            Energy = Energy+dE;
-        }
-    }
-    return 0.5*Energy;
-}
 
 void mc_sol(vector<double> &mc_E, int (&Lattice)[len][len], vector<double> &temp_vec)
 {
