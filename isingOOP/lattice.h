@@ -22,7 +22,7 @@ namespace ising {
         double interactionJ_;
         int plusOne_(int i);
         int minusOne_(int i);
-        int** getNeighbors_(int i, int j);
+        int* getNeighbors_(int i, int j);
         int* getNeighborSpins_(int i, int j);
     };
 }
