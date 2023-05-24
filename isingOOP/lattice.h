@@ -20,7 +20,7 @@ namespace ising {
         double localEnergy(int i, int j);
         double Energy();
         void flip_spin(int i, int j);
-        void metropolisLoop(int nMC, vector<double> &mc_E);
+        void metropolisLoop(int nMC, std::vector<double> &mc_E);
         
         private: //used within the class itself only
         int length_;
