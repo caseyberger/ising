@@ -17,6 +17,6 @@ namespace ising {
         
         private: //used within the class itself only
         int length_;
-        int *grid_;
+        int **grid_;
     };
 }
