@@ -20,7 +20,7 @@ namespace ising {
         for(int i = 0; i < len; i++){
             grid[i] = new int[len];
             for (int j = 0; j<len; j++){
-                grid[i][j] = new int;
+                grid[i][j] = int;
                 double r = ((double)std::rand())/((double)std::RAND_MAX);
                 if (r<0.5)
                     {grid[i][j] = -1;}
