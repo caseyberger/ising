@@ -63,7 +63,7 @@ namespace ising {
     //private functions
     int Lattice::plusOne_(int i){
         //int len = Lattice::getLength();
-        if(i == length_){ return 0;}
+        if(i+1 == length_){ return 0;}
         else{return i+1;}
     }
     
