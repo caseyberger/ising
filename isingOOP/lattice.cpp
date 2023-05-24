@@ -15,13 +15,13 @@ namespace ising {
         return length_;
     }
     void initialize(){
-        len = Lattice::getLength();
+        int len = Lattice::getLength();
         int ** grid = new int*[len];
         for(int i = 0; i < len; i++){
             grid[i] = new int[len];
             for (int j = 0; j<len; j++){
                 grid[i][j] = new int;
-                double r = ((double)rand())/((double)RAND_MAX);
+                double r = ((double)std::rand())/((double)std::RAND_MAX);
                 if (r<0.5)
                     {grid[i][j] = -1;}
                 else
