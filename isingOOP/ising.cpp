@@ -51,7 +51,7 @@ int main ()
     cout << "Initialized"<<endl;
     L.printLattice();
     vector<double> mc_E; //stores energies for monte carlo loop at one T
-    L.metropolisLoop(int nMC, vector<double> &mc_E);
+    L.metropolisLoop(nMC, mc_E);
     /*
     srand(time(NULL)); //seed random number
     vector<double> exact_E; //stores exact solution
