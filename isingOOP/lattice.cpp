@@ -1,6 +1,7 @@
 // Casey Berger
 // Created: May 24 2023
 // Last edited: May 24, 2023
+//test
 #include "lattice.h"
 
 namespace ising {
