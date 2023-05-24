@@ -1,9 +1,6 @@
 // Casey Berger
 // Created: May 7 2014
-// Last edited: Feb 2, 2023 (updated for Smith cluster!)
-//
-//second attempt - starting from scratch
-//using j = 1.0 and h = 0.0
+// Last edited: May 24, 2023 (OOP)
 
 // include files
 #include <iostream>
@@ -16,10 +13,12 @@
 #include <stdio.h>
 #include <sstream>
 #include <time.h>
-//#include "boost/tuple/tuple.hpp"
-//#include "gnuplot-iostream/gnuplot-iostream.h"
+
+//custom headers
+#include "lattice.h"
 
 using namespace std;
+using ising::Lattice;
 
 //global variables
 const int len = 10; //length of lattice
@@ -46,6 +45,10 @@ void equilibrate(int (&Lattice)[len][len], double T);
 
 int main ()
 {
+    Lattice L;
+    L.setLength(len);
+    cout << "Length of lattice L = " << L.getLength() << endl;
+    /*
     srand(time(NULL)); //seed random number
     vector<double> exact_E; //stores exact solution
     vector<double> mc_E; //stores monte carlo solution
@@ -54,7 +57,7 @@ int main ()
     
     mc_sol(mc_E, Lattice, temp_vec);
     exact_sol(exact_E);
-    write_to_file(exact_E, mc_E, temp_vec);
+    write_to_file(exact_E, mc_E, temp_vec);*/
     return 0;
 }
 
