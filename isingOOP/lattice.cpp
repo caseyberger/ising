@@ -106,14 +106,14 @@ namespace ising {
     }
         
     void Lattice::flipSpin_(int i, int j){
-        double E_init = Lattice::localEnergy(int i, int j);
-        double dE = -2.*Einit;
+        double E_init = Lattice::localEnergy(i, j);
+        double dE = -2.*E_init;
         double r = ((double) std::rand())/((double) RAND_MAX);
         if (dE < 0){
             grid_[i][j] = -1 * grid_[i][j];
         }
         else{
-            if (r<=exp(-1.0*dE/kBT_)){
+            if (r<=std::exp(-1.0*dE/kBT_)){
                 grid_[i][j] = -1*grid_[i][j];
             }
             else{
