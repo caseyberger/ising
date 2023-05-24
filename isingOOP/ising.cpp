@@ -18,7 +18,7 @@
 #include "lattice.h"
 
 using namespace std;
-#using ising::Lattice;
+//using ising::Lattice;
 
 //global variables
 const int len = 10; //length of lattice
