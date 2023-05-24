@@ -45,7 +45,7 @@ namespace ising {
     
     double Lattice::localEnergy(int i, int j){
         int *nnSpins = Lattice::getNeighborSpins_(i,j);
-        int **nn = Lattice::getNeighbors_(i,j);
+        int *nn = Lattice::getNeighbors_(i,j);
         std::cout << "i,j = " << i << "," << j << std::endl;
         std::cout << "nn = " << std::endl;
         std::cout<< nn[0][0] << "," << nn[0][1] << std::endl;
@@ -71,7 +71,7 @@ namespace ising {
     }
     
     int* Lattice::getNeighbors_(int i, int j){
-        int nn[4][2];
+        int* nn[4][2];
         nn[0][0] = Lattice::plusOne_(i);
         nn[0][1] = j;
         nn[1][0] = i;
@@ -84,7 +84,7 @@ namespace ising {
     }
     
     int* Lattice::getNeighborSpins_(int i, int j){
-        int nnSpins[4];
+        int* nnSpins[4];
         nnSpins[0] = grid_[Lattice::plusOne_(i)][j];
         nnSpins[1] = grid_[i][Lattice::plusOne_(j)];
         nnSpins[2] = grid_[Lattice::minusOne_(i)][j];
