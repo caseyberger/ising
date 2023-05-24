@@ -54,7 +54,7 @@ namespace ising {
         std::cout<< nn[3][0] << "," << nn[3][1] << std::endl;
         
         double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
-        return - interactionJ * grid_[i][j] * nnsum;
+        return - interactionJ_ * grid_[i][j] * nnsum;
     }
     
     
@@ -72,23 +72,23 @@ namespace ising {
     
     int** Lattice::getNeighbors_(int i, int j){
         int nn[4][2];
-        nn[0][0] = Lattice::plusOne(i);
+        nn[0][0] = Lattice::plusOne_(i);
         nn[0][1] = j;
         nn[1][0] = i;
-        nn[1][1] = Lattice::plusOne(j);
-        nn[2][0] = Lattice::minusOne(i);
+        nn[1][1] = Lattice::plusOne_(j);
+        nn[2][0] = Lattice::minusOne_(i);
         nn[2][1] = j;
         nn[3][0] = i;
-        nn[3][1] = Lattice::minusOne(j);
+        nn[3][1] = Lattice::minusOne_(j);
         return nn;
     }
     
     int* Lattice::getNeighborSpins_(int i, int j){
         int nnSpins[4];
-        nnSpins[0] = grid_[Lattice::plusOne(i)][j];
-        nnSpins[1] = grid_[i][Lattice::plusOne(j)];
-        nnSpins[2] = grid_[Lattice::minusOne(i)][j];
-        nnSpins[3] = grid[i][Lattice::minusOne(j)];
+        nnSpins[0] = grid_[Lattice::plusOne_(i)][j];
+        nnSpins[1] = grid_[i][Lattice::plusOne_(j)];
+        nnSpins[2] = grid_[Lattice::minusOne_(i)][j];
+        nnSpins[3] = grid_[i][Lattice::minusOne_(j)];
         return nnSpins;
     }
 }
