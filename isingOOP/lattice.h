@@ -19,7 +19,6 @@ namespace ising {
         int* getNeighborSpins_(int i, int j);
         double localEnergy(int i, int j);
         double Energy();
-        void flip_spin(int i, int j);
         void metropolisLoop(int nMC, std::vector<double> &mc_E);
         
         private: //used within the class itself only
@@ -29,6 +28,7 @@ namespace ising {
         double kBT_;
         int plusOne_(int i);
         int minusOne_(int i);
+        void flipSpin_(int i, int j);
         void sweepLattice_();
     };
 }
