@@ -54,7 +54,9 @@ namespace ising {
         std::cout<< nn[6] << "," << nn[7] << std::endl;
         
         double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
-        return - interactionJ_ * grid_[i][j] * nnsum;
+        double Eloc = (-1.*interactionJ_ * grid_[i][j] * nnsum);
+        std::cout << "Eloc = " << Eloc <<  std::endl;
+        return Eloc;
     }
     
     
