@@ -71,7 +71,7 @@ namespace ising {
     }
     
     int* Lattice::getNeighbors_(int i, int j){
-        int* nn[8];
+        int *nn[8];
         nn[0] = Lattice::plusOne_(i);
         nn[1] = j;
         nn[2] = i;
@@ -84,7 +84,7 @@ namespace ising {
     }
     
     int* Lattice::getNeighborSpins_(int i, int j){
-        int* nnSpins[4];
+        int *nnSpins[4];
         nnSpins[0] = grid_[Lattice::plusOne_(i)][j];
         nnSpins[1] = grid_[i][Lattice::plusOne_(j)];
         nnSpins[2] = grid_[Lattice::minusOne_(i)][j];
