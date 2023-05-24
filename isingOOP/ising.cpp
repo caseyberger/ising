@@ -32,7 +32,7 @@ const int eq_iter = 1000; //number of iterations for equilibration
 double J = 1.0; //interaction strength
 
 //function declaration
-double calc_E(int Lattice[len][len], int i, int j);
+/*double calc_E(int Lattice[len][len], int i, int j);
 void flip_spin(int (&Lattice)[len][len], int i, int j, double T, double &dE);
 double tot_E(int Lattice[len][len]);
 void mc_sol(vector<double> &mc_E, int (&Lattice)[len][len], vector<double> &temp_vec);
@@ -40,7 +40,7 @@ double avg(vector<double> sample_vec);
 void print_lattice(int Lattice[len][len]);
 void exact_sol(vector<double> &exact_E);
 void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double> &temp_vec);
-void equilibrate(int (&Lattice)[len][len], double T);
+void equilibrate(int (&Lattice)[len][len], double T);*/
 
 int main ()
 {
@@ -68,7 +68,7 @@ int main ()
     return 0;
 }
 
-
+/*
 double calc_E(int Lattice[len][len], int i, int j)
 {
     //cout << "calc_E" << endl;
@@ -287,11 +287,6 @@ void exact_sol(vector<double> &exact_E)
         //os >> d;
         exact_E.push_back(d);
     }
-    /*
-     for (unsigned int n = 0; n<exact_E.size(); n++)
-     {
-     cout << exact_E[n] << endl;
-     }*/
 }
 
 void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double> &temp_vec)
@@ -338,3 +333,4 @@ void equilibrate(int (&Lattice)[len][len], double T)
         }
     }
 }
+*/
