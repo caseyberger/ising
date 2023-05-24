@@ -50,6 +50,7 @@ int main ()
     srand(7); //seed random number
     L.initialize();
     cout << "Initialized"<<endl;
+    L.printLattice();
     /*
     srand(time(NULL)); //seed random number
     vector<double> exact_E; //stores exact solution

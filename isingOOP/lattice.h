@@ -14,6 +14,7 @@ namespace ising {
         void setLength(int length);
         int getLength();
         void initialize();
+        void printLattice();
         
         private: //used within the class itself only
         int length_;

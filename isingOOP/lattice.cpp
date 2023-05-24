@@ -29,4 +29,14 @@ namespace ising {
         }
         grid_ = grid;
     }
+    void Lattice::printLattice(){
+        int len = Lattice::getLength();
+        for(int i = 0; i < len; i++){
+            for (int j = 0; j<len; j++){
+                std::cout << grid[i][j] << ",";
+            }
+            std::endl;
+        }
+    }
+    
 }
