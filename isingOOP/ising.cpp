@@ -18,7 +18,7 @@
 #include "lattice.h"
 
 using namespace std;
-using ising::Lattice;
+#using ising::Lattice;
 
 //global variables
 const int len = 10; //length of lattice
@@ -45,7 +45,7 @@ void equilibrate(int (&Lattice)[len][len], double T);
 
 int main ()
 {
-    Lattice L;
+    ising::Lattice L;
     L.setLength(len);
     cout << "Length of lattice L = " << L.getLength() << endl;
     /*

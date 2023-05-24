@@ -6,7 +6,7 @@
 #pragma once
 
 namespace ising {
-    class Lattice(){
+    class Lattice {
         //constructor to come
         //public members (can be accessed in other functions)
         public:
