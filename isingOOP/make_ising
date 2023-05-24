@@ -13,13 +13,9 @@ CXX= g++
 #compiler flags
 CXXFLAGS=  -g -O2
 
-#target name
-TARGET = ising
-
 # Instructions to compile and link 
-
-$(TARGET): ising.o lattice.o 
-	$(CXX) $(CXXFLAGS) -o $(TARGET) ising.o lattice.o
+ising: ising.o lattice.o 
+	$(CXX) $(CXXFLAGS) -o ising ising.o lattice.o
                  
 ising.o : ising.cpp lattice.h
 	$(CXX) $(CXXFLAGS) -c ising.cpp
@@ -33,10 +29,7 @@ lattice.o: lattice.cpp lattice.h
 ##########################################################################
  
 clean:
-	rm -f $(OBJS)
-  
-zip:
-	zip -r $(COMMAND).zip $(MAKEFILE) $(SRCS) $(HDRS)
+	rm -f *.o
 
 ##########################################################################
 # End of makefile 
