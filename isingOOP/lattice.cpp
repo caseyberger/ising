@@ -71,7 +71,7 @@ namespace ising {
     }
     
     int* Lattice::getNeighbors_(int i, int j){
-        int nn[8];
+        static int nn[8];
         nn[0] = Lattice::plusOne_(i);
         nn[1] = j;
         nn[2] = i;
