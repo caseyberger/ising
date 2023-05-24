@@ -6,13 +6,16 @@
 
 namespace ising {
     class Lattice {
-        //constructor to come
-        //public members (can be accessed in other functions)
         public:
-            int getLength();
-            void setLength(int length);
+        //constructor
+        Lattice(int length);
+        //public members (can be accessed in other functions)
+        void setLength(int length);
+        int getLength();
+        void initialize();
         
         private: //used within the class itself only
-            int length_;
+        int length_;
+        int *grid_;
     };
 }

@@ -48,6 +48,9 @@ int main ()
     Lattice L;
     L.setLength(len);
     cout << "Length of lattice L = " << L.getLength() << endl;
+    srand(7); //seed random number
+    L.initialize();
+    cout << "Initialized"<<endl;
     /*
     srand(time(NULL)); //seed random number
     vector<double> exact_E; //stores exact solution
