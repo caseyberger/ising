@@ -153,9 +153,9 @@ namespace ising {
         shuffle (i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
         shuffle (j_arr.begin(), j_arr.end(), std::default_random_engine(7812));
    
-        for(int i = 0; i < length_; i++){
-            for (int j = 0; j<length_; j++){
-                Lattice::flipSpin_(i_arr[i], j_arr[j]);
+        for(i = i_arr.begin(); i != i_arr.end(); ++i){
+            for(j = j_arr.begin(); j != j_arr.end(); ++j){
+                Lattice::flipSpin_(i,j);
             }
         }
     }
