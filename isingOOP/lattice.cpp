@@ -16,7 +16,7 @@ namespace ising {
     //public functions
     Lattice::Lattice(int length, double J, double kBT){
         Lattice::setLength(length); //set length
-        Lattice::setinteractionJ(J); //set J (do I need to do this the same way I do length?)
+        Lattice::setInteractionJ(J); //set J (do I need to do this the same way I do length?)
         Lattice::setTemperature(kBT);//see above note
     }
     void Lattice::setLength(int length){
