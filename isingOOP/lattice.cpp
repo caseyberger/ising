@@ -145,7 +145,8 @@ namespace ising {
     void Lattice::sweepLattice_(){
         //consider making two arrays for i and j, which are shuffled orders of the indices
         
-        std::list<int> i_arr(length_), j_arr[length_];
+        std::list<int> i_arr(length_);
+        std::list<int> j_arr[length_];
         std::iota(i_arr.begin(), i_arr.end(), 1);
         std::iota(j_arr.begin(), j_arr.end(), 1);
         
