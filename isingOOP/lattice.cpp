@@ -6,6 +6,7 @@
 #include <vector> //vector
 #include <cmath> //exp
 #include <numeric> // iota
+#include <list> //for lists needed in iota
 #include <algorithm>  // shuffle
 #include <random> //default_random_engine
 
@@ -144,15 +145,13 @@ namespace ising {
     void Lattice::sweepLattice_(){
         //consider making two arrays for i and j, which are shuffled orders of the indices
         
-        const int len = length_;
+        std::list<int> i_arr(length_), j_arr[length_];
         
-        int i_arr[len], j_arr[len];
+        std::iota(i_arr.begin(), i_arr.end(), 1);
+        std::iota(j_arr.begin(), j_arr.end(), 1);
         
-        std::iota(std::begin(i_arr), std::end(i_arr), 1);
-        std::iota(std::begin(j_arr), std::end(j_arr), 1);
-        
-        shuffle (std::begin(i_arr), std::end(i_arr), std::default_random_engine(1232));
-        shuffle (std::begin(j_arr), std::end(j_arr), std::default_random_engine(7812));
+        shuffle (i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
+        shuffle (j_arr.begin(), j_arr.end(), std::default_random_engine(7812));
    
         for(int i = 0; i < length_; i++){
             for (int j = 0; j<length_; j++){
