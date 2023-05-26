@@ -229,9 +229,7 @@ void write_to_file(vector<double> &mc_E, double T, double J, int len)
     
     std::stringstream T_stream, J_stream, L_stream;
     T_stream << std::fixed << std::setprecision(3) << T; //truncate T for filename
-    std::string str_T = T_stream.str();
     J_stream << std::fixed << std::setprecision(3) << J; //truncate J for filename
-    std::string str_T = T_stream.str();
     L_stream << std::fixed << std::setprecision(1) << len; //truncate len for filename
     std::string str_T = T_stream.str();
     std::string str_J = J_stream.str();
