@@ -57,6 +57,9 @@ namespace ising {
     }
     void Lattice::printLattice(){
         int len = Lattice::getLength();
+        double T = Lattice::getTemperature();
+        double J = Lattice::getInteractionJ();
+        std::cout << len << " x " << len << " lattice with T = " << T << " and J = " << J << std::endl;
         for(int i = 0; i < len; i++){
             for (int j = 0; j<len; j++){
                 std::cout << std::setw(4) << grid_[i][j] << ",";

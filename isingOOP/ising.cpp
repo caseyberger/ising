@@ -59,7 +59,7 @@ int main ()
         L.setTemperature(T);
         L.initialize();
         cout << "Initialized"<<endl;
-        //L.printLattice();
+        L.printLattice();
         vector<double> mc_E; //stores energies for monte carlo loop at one T
         L.metropolisLoop(nMC, mc_E);
         write_to_file(mc_E,T,J,len);
