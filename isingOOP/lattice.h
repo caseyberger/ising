@@ -15,8 +15,8 @@ namespace ising {
         int getLength();
         void initialize();
         void printLattice();
-        int* getNeighbors_(int i, int j);
-        int* getNeighborSpins_(int i, int j);
+        int* getNeighbors(int i, int j);
+        int* getNeighborSpins(int i, int j);
         double localEnergy(int i, int j);
         double Energy();
         void metropolisLoop(int nMC, std::vector<double> &mc_E);
