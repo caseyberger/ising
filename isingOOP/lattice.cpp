@@ -5,6 +5,9 @@
 #include <iomanip> //setw
 #include <vector> //vector
 #include <cmath> //exp
+#include <numeric> // iota
+#include <algorithm>  // shuffle
+#include <randome> //default_random_engine
 
 #include "lattice.h"
 
@@ -107,15 +110,15 @@ namespace ising {
     }
         
     void Lattice::flipSpin_(int i, int j){
-        double E_init = Lattice::localEnergy(i, j);
+        double E_init = 1.0*Lattice::localEnergy(i, j);
         double dE = -2.*E_init;
         double r = ((double) std::rand())/((double) RAND_MAX);
         if (dE < 0){
             grid_[i][j] = -1 * grid_[i][j];
         }
         else{
-            if (r<=std::exp(-1.0*dE/kBT_)){
-                grid_[i][j] = -1*grid_[i][j];
+            if (r <= std::exp(-1.0*dE/kBT_)){
+                grid_[i][j] = -1 * grid_[i][j];
             }
             else{
                 dE = 0.0;
@@ -125,9 +128,17 @@ namespace ising {
     
     void Lattice::sweepLattice_(){
         //consider making two arrays for i and j, which are shuffled orders of the indices
+        int i_arr[length_], j_arr[length_];
+        
+        std::iota(std::begin(i_arr), std::end(i_arr), 1);
+        std::iota(std::begin(j_arr), std::end(j_arr), 1);
+        
+        shuffle (i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
+        shuffle (i_arr.begin(), i_arr.end(), std::default_random_engine(7812));
+   
         for(int i = 0; i < length_; i++){
             for (int j = 0; j<length_; j++){
-                Lattice::flipSpin_(i, j);
+                Lattice::flipSpin_(i_arr[i], j_arr[j]);
             }
         }
     }
