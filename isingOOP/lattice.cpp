@@ -146,9 +146,13 @@ namespace ising {
         //consider making two arrays for i and j, which are shuffled orders of the indices
         
         std::list<int> i_arr(length_), j_arr[length_];
-        
         std::iota(i_arr.begin(), i_arr.end(), 1);
         std::iota(j_arr.begin(), j_arr.end(), 1);
+        
+        //std::vector<int> i(length_);
+        //std::vector<int> j(length_);
+        //std::iota(i.begin(), i.end(), 1);
+        //std::iota(i.begin(), i.end(), 1);
         
         shuffle (i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
         shuffle (j_arr.begin(), j_arr.end(), std::default_random_engine(7812));
