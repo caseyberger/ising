@@ -26,7 +26,7 @@ namespace ising {
         kBT_ = kBT;
     }
     
-    void Lattice::setinteractionJ(double J){
+    void Lattice::setInteractionJ(double J){
         interactionJ_ = J;
     }
     
@@ -41,11 +41,10 @@ namespace ising {
         return interactionJ_;
     }
     void Lattice::initialize(){
-        length = Lattice::getLength();
-        int ** grid = new int*[length];
-        for(int i = 0; i < length; i++){
-            grid[i] = new int[length];
-            for (int j = 0; j<length; j++){
+        int ** grid = new int*[length_];
+        for(int i = 0; i < length_; i++){
+            grid[i] = new int[length_];
+            for (int j = 0; j<length_; j++){
                 double r = ((double) std::rand())/((double) RAND_MAX);
                 if (r<0.5)
                     {grid[i][j] = -1;}
@@ -144,7 +143,10 @@ namespace ising {
     
     void Lattice::sweepLattice_(){
         //consider making two arrays for i and j, which are shuffled orders of the indices
-        int i_arr[length_], j_arr[length_];
+        
+        const int len = length_;
+        
+        int i_arr[len], j_arr[len];
         
         std::iota(std::begin(i_arr), std::end(i_arr), 1);
         std::iota(std::begin(j_arr), std::end(j_arr), 1);
