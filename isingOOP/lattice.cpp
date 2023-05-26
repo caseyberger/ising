@@ -90,7 +90,7 @@ namespace ising {
         //adds energy for individual configurations to a vector so we can do stats for that temperature
         for (int n = 0; n < nMC; n++){
             Lattice::sweepLattice_(); //iterate over the whole lattice, flipping spins if favorable
-            mc_E.push_back(Lattice::Energy())
+            mc_E.push_back(Lattice::Energy());
         }
     }
     
