@@ -12,7 +12,11 @@ namespace ising {
         Lattice(int length, double J, double kBT);
         //public members (can be accessed in other functions)
         void setLength(int length);
+        void setTemperature(double kBT);
+        void setInteractionJ(double J);
         int getLength();
+        double getTemperature();
+        double getInteractionJ();
         void initialize();
         void printLattice();
         int* getNeighbors(int i, int j);

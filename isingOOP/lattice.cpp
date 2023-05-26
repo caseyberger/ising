@@ -15,19 +15,33 @@ namespace ising {
     //public functions
     Lattice::Lattice(int length, double J, double kBT){
         Lattice::setLength(length); //set length
-        interactionJ_ = J; //set J (do I need to do this the same way I do length?)
-        kBT_ = kBT;//see above note
+        Lattice::setinteractionJ(J); //set J (do I need to do this the same way I do length?)
+        Lattice::setTemperature(kBT);//see above note
     }
     void Lattice::setLength(int length){
         length_ = length;
     }
+    
+    void Lattice::setTemperature(double kBT){
+        kBT_ = kBT;
+    }
+    
+    void Lattice::setinteractionJ(double J){
+        interactionJ_ = J;
+    }
+    
     int Lattice::getLength(){
         return length_;
     }
-    void Lattice::initialize(int length, double J, double kBT){
-        Lattice::setLength(length); //set length
-        interactionJ_ = J; //set J (do I need to do this the same way I do length?)
-        kBT_ = kBT;//see above note
+    
+    double Lattice::getTemperature(){
+        return kBT_;
+    }
+    double Lattice::getInteractionJ(){
+        return interactionJ_;
+    }
+    void Lattice::initialize(){
+        length = Lattice::getLength();
         int ** grid = new int*[length];
         for(int i = 0; i < length; i++){
             grid[i] = new int[length];
@@ -135,8 +149,8 @@ namespace ising {
         std::iota(std::begin(i_arr), std::end(i_arr), 1);
         std::iota(std::begin(j_arr), std::end(j_arr), 1);
         
-        shuffle (i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
-        shuffle (i_arr.begin(), i_arr.end(), std::default_random_engine(7812));
+        shuffle (std::begin(i_arr), std::end(i_arr), std::default_random_engine(1232));
+        shuffle (std::begin(j_arr), std::end(j_arr), std::default_random_engine(7812));
    
         for(int i = 0; i < length_; i++){
             for (int j = 0; j<length_; j++){

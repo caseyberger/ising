@@ -56,6 +56,7 @@ int main ()
     double T = Tmax; //current temp
     //temperature loop
     while (T>=Tmin){
+        L.setTemperature(T);
         L.initialize();
         cout << "Initialized"<<endl;
         //L.printLattice();
