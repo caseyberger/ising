@@ -90,7 +90,7 @@ void write_to_file(vector<double> &mc_E, double T, double J, int len)
         exit(10);
     }
     fout.setf(ios::fixed);
-    fout << "# E, T, J, L" << endl;
+    fout << "E,T,J,L" << endl;
     for (unsigned int n = 0; n<mc_E.size(); n++)
     {
         fout.setf(ios::fixed);
