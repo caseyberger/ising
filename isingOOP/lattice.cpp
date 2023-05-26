@@ -3,7 +3,8 @@
 // Last edited: May 24, 2023
 #include <iostream> //cout, endl
 #include <iomanip> //setw
-#include <vector>
+#include <vector> //vector
+#include <cmath> //exp
 
 #include "lattice.h"
 
@@ -68,7 +69,7 @@ namespace ising {
     }
     
     double Lattice::localEnergy(int i, int j){
-        int *nnSpins = Lattice::getNeighborSpins_(i,j);
+        int *nnSpins = Lattice::getNeighborSpins(i,j);
         double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
         double Eloc = (-1.*interactionJ_ * grid_[i][j] * nnsum);
         std::cout << "Eloc = " << Eloc <<  std::endl;
@@ -85,7 +86,7 @@ namespace ising {
         return Energy;
     }
     
-    void Lattice::metropolisLoop(int nMC, vector<double> &mc_E){
+    void Lattice::metropolisLoop(int nMC, std::vector<double> &mc_E){
         //adds energy for individual configurations to a vector so we can do stats for that temperature
         for (int n = 0; n < nMC; n++){
             Lattice::sweepLattice_(); //iterate over the whole lattice, flipping spins if favorable
