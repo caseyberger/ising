@@ -7,7 +7,7 @@
 #include <cmath> //exp
 #include <numeric> // iota
 #include <algorithm>  // shuffle
-#include <randome> //default_random_engine
+#include <random> //default_random_engine
 
 #include "lattice.h"
 
@@ -24,12 +24,14 @@ namespace ising {
     int Lattice::getLength(){
         return length_;
     }
-    void Lattice::initialize(){
-        int len = Lattice::getLength();
-        int ** grid = new int*[len];
-        for(int i = 0; i < len; i++){
-            grid[i] = new int[len];
-            for (int j = 0; j<len; j++){
+    void Lattice::initialize(int length, double J, double kBT){
+        Lattice::setLength(length); //set length
+        interactionJ_ = J; //set J (do I need to do this the same way I do length?)
+        kBT_ = kBT;//see above note
+        int ** grid = new int*[length];
+        for(int i = 0; i < length; i++){
+            grid[i] = new int[length];
+            for (int j = 0; j<length; j++){
                 double r = ((double) std::rand())/((double) RAND_MAX);
                 if (r<0.5)
                     {grid[i][j] = -1;}

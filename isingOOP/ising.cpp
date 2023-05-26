@@ -53,12 +53,12 @@ int main ()
     Lattice L(len, J, Tmax);
     cout << "Length of lattice L = " << L.getLength() << endl;
     srand(7); //seed random number
-    L.initialize();
-    cout << "Initialized"<<endl;
-    L.printLattice();
     double T = Tmax; //current temp
     //temperature loop
     while (T>=Tmin){
+        L.initialize();
+        cout << "Initialized"<<endl;
+        //L.printLattice();
         vector<double> mc_E; //stores energies for monte carlo loop at one T
         L.metropolisLoop(nMC, mc_E);
         write_to_file(mc_E,T,J,len);
