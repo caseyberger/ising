@@ -45,7 +45,7 @@ int main ()
 {
     int len = 10; //length of lattice
     double J = 1.0; //interaction strength
-    int nMC = 10000; //number of monte carlo iterations
+    int nMC = 1000000; //number of monte carlo iterations
     double Tmax = 4.0;  //max temp
     double Tmin = 0.0; //min temp
     double dT = 0.2; //temperature iterator
