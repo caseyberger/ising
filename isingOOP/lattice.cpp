@@ -72,7 +72,7 @@ namespace ising {
         int *nnSpins = Lattice::getNeighborSpins(i,j);
         double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
         double Eloc = (-1.*interactionJ_ * grid_[i][j] * nnsum);
-        std::cout << "Eloc = " << Eloc <<  std::endl;
+        //std::cout << "Eloc = " << Eloc <<  std::endl;
         return Eloc;
     }
     

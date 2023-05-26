@@ -21,15 +21,15 @@ using namespace std;
 using ising::Lattice;
 
 //global variables
-const int len = 10; //length of lattice
-const int l_end = len-1; //last spot on lattice
-const int num = len*len;  //total number of spins
-double Tmax = 5.0;  //max temp
-double Tmin = 0.0; //min temp
-double dT = 0.2; //temperature iterator
-const int nMC = 1000000; //number of monte carlo iterations
-const int eq_iter = 1000; //number of iterations for equilibration
-double J = 1.0; //interaction strength
+//const int len = 10; //length of lattice
+//const int l_end = len-1; //last spot on lattice
+//const int num = len*len;  //total number of spins
+//double Tmax = 4.0;  //max temp
+//double Tmin = 0.0; //min temp
+//double dT = 0.2; //temperature iterator
+//const int nMC = 10000; //number of monte carlo iterations
+//const int eq_iter = 1000; //number of iterations for equilibration
+//double J = 1.0; //interaction strength
 
 //function declaration
 /*double calc_E(int Lattice[len][len], int i, int j);
@@ -39,19 +39,30 @@ void mc_sol(vector<double> &mc_E, int (&Lattice)[len][len], vector<double> &temp
 double avg(vector<double> sample_vec);
 void print_lattice(int Lattice[len][len]);
 void exact_sol(vector<double> &exact_E);
-void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double> &temp_vec);
 void equilibrate(int (&Lattice)[len][len], double T);*/
-
+void write_to_file(vector<double> &mc_E, double T, double J, int len);
 int main ()
 {
+    int len = 10; //length of lattice
+    double J = 1.0; //interaction strength
+    int nMC = 10000; //number of monte carlo iterations
+    double Tmax = 4.0;  //max temp
+    double Tmin = 0.0; //min temp
+    double dT = 0.2; //temperature iterator
+    
     Lattice L(len, J, Tmax);
     cout << "Length of lattice L = " << L.getLength() << endl;
     srand(7); //seed random number
     L.initialize();
     cout << "Initialized"<<endl;
     L.printLattice();
-    vector<double> mc_E; //stores energies for monte carlo loop at one T
-    L.metropolisLoop(nMC, mc_E);
+    double T = Tmax; //current temp
+    //temperature loop
+    while (T>=Tmin){
+        vector<double> mc_E; //stores energies for monte carlo loop at one T
+        L.metropolisLoop(nMC, mc_E);
+        write_to_file(mc_E,T,J,len);
+    }
     /*
     srand(time(NULL)); //seed random number
     vector<double> exact_E; //stores exact solution
@@ -210,12 +221,22 @@ void exact_sol(vector<double> &exact_E)
         exact_E.push_back(d);
     }
 }
-
-void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double> &temp_vec)
+*/
+void write_to_file(vector<double> &mc_E, double T, double J, int len)
 {
     //cout << "write_to_file" << endl;
-    //output both solutions to a .txt file to open in gnuplot
-    string fname = "mc_ising_data.txt";
+    //output both solutions to a .csv
+    
+    std::stringstream T_stream, J_stream, L_stream;
+    T_stream << std::fixed << std::setprecision(3) << T; //truncate T for filename
+    std::string str_T = T_stream.str();
+    J_stream << std::fixed << std::setprecision(3) << J; //truncate J for filename
+    std::string str_T = T_stream.str();
+    L_stream << std::fixed << std::setprecision(1) << len; //truncate len for filename
+    std::string str_T = T_stream.str();
+    std::string str_J = J_stream.str();
+    std::string str_L = L_stream.str();
+    std::string fname = "ising_MC_T_" + str_T + "_J_" + str_J +"_L_" + str_L + ".csv";//output filename
     ofstream fout; //output stream
     fout.open(fname.c_str(),ios::out);
     
@@ -226,18 +247,16 @@ void write_to_file(vector<double> &exact_E, vector<double> &mc_E, vector<double>
         exit(10);
     }
     fout.setf(ios::fixed);
-    fout << setw(20) << "# E/N exact" << setw(20) << "# E/N mc" << setw(20) << "T/J" << endl;
-    for (unsigned int n = 0; n<exact_E.size(); n++)
+    fout << "# E, T, J, L" << endl;
+    for (unsigned int n = 0; n<mc_E.size(); n++)
     {
         fout.setf(ios::fixed);
-        fout << setw(20) << exact_E[n] << setw(20) << 1.0*mc_E[n]/(1.0*J*num) << setw(20) << temp_vec[n]/(abs(J)) << endl;
+        fout << mc_E[n] << "," << T << "," << J << "," << len << endl;
     }
     fout.close();
-    exact_E.clear();
     mc_E.clear();
-    temp_vec.clear();
 }
-
+/*
 void equilibrate(int (&Lattice)[len][len], double T)
 {
     //cout << "equilibrate" << endl;
