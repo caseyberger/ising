@@ -9,7 +9,7 @@ namespace ising {
     class Lattice {
         public:
         //constructor
-        Lattice(int length, double J, double kBT_);
+        Lattice(int length, double J, double kBT);
         //public members (can be accessed in other functions)
         void setLength(int length);
         int getLength();

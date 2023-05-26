@@ -12,7 +12,7 @@ namespace ising {
     Lattice::Lattice(int length, double J, double kBT){
         Lattice::setLength(length); //set length
         interactionJ_ = J; //set J (do I need to do this the same way I do length?)
-        kBT_ = kBT;
+        kBT_ = kBT;//see above note
     }
     void Lattice::setLength(int length){
         length_ = length;
