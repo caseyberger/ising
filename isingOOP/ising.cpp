@@ -79,7 +79,7 @@ void write_to_file(vector<double> &mc_E, double T, double J, int len)
     std::string str_T = T_stream.str();
     std::string str_J = J_stream.str();
     std::string str_L = L_stream.str();
-    std::string fname = "ising_MC_T_" + str_T + "_J_" + str_J +"_L_" + str_L + ".csv";//output filename
+    std::string fname = "data/ising_MC_T_" + str_T + "_J_" + str_J +"_L_" + str_L + ".csv";//output filename
     ofstream fout; //output stream
     fout.open(fname.c_str(),ios::out);
     
