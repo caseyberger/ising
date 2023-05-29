@@ -25,10 +25,9 @@ void read_in_inputs(int argc, char *argv[],int &len, double &J, double &Tmax, do
 void write_to_file(vector<double> &mc_E, vector<double> &mc_M, double T, double J, int len);
 int main (int argc, char *argv[])
 {
-    int len,nMc;//length of lattice, number of monte carlo iterations
+    int len,nMC;//length of lattice, number of monte carlo iterations
     double J, Tmax, Tmin, dT; //interaction strength, max temp, min temp, temperature iterator
-    
-    read_in_inputs(int argc, char *argv[],int &len, double &J, double &Tmax, double &Tmin, double &dT, int &nMC);
+    read_in_inputs(argc, argv,len, J, Tmax, Tmin, dT, nMC);
     
     Lattice L(len, J, Tmax);
     srand(7); //seed random number
