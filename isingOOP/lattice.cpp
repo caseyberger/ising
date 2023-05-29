@@ -171,5 +171,7 @@ namespace ising {
                 Lattice::flipSpin_(i_arr[i],j_arr[j]);
             }
         }
+        i_arr.clear();
+        j_arr.clear();
     }
 }
