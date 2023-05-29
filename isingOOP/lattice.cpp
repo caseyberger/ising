@@ -182,7 +182,7 @@ namespace ising {
 #ifdef TESTING_MODE
             int i = site_arr[n]/length_;
             int j = site_arr[n]%length_;
-            std::cout << "n = " << <<n << "," << "i,j = " << i << ","<< j << std::endl;
+            std::cout << "n = " << n << ", and i,j = " << i << ","<< j << std::endl;
 #endif
             //the -1 is necessary b/c iota starts at 1 instead of 0
             //Lattice::flipSpin_(i,j);
