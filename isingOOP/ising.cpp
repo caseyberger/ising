@@ -57,19 +57,20 @@ int main ()
     while (T>=Tmin){
         L.setTemperature(T);
         L.initialize();
-        cout << "Initialized"<<endl;
 #ifdef TESTING_MODE
+        cout << "Lattice initialized"<<endl;
         L.printLattice();
 #endif 
         vector<double> mc_E; //stores energies for monte carlo loop at one T
-        L.metropolisLoop(nMC, mc_E);
-        write_to_file(mc_E,T,J,len);
+        vector<double> mc_M; //stores magnetizations for monte carlo loop at one T
+        L.metropolisLoop(nMC, mc_E, mc_M);
+        write_to_file(mc_E, mc_M, T, J, len);
         T -= dT;
     }
     return 0;
 }
 
-void write_to_file(vector<double> &mc_E, double T, double J, int len)
+void write_to_file(vector<double> &mc_E, vector<double> &mc_M, double T, double J, int len)
 {
     //cout << "write_to_file" << endl;
     //output both solutions to a .csv
@@ -92,14 +93,15 @@ void write_to_file(vector<double> &mc_E, double T, double J, int len)
         exit(10);
     }
     fout.setf(ios::fixed);
-    fout << "step,E,T,J,L" << endl;
+    fout << "step,E,M,T,J,L" << endl;
     for (unsigned int n = 0; n<mc_E.size(); n++)
     {
         fout.setf(ios::fixed);
-        fout << n << "," << mc_E[n] << "," << T << "," << J << "," << len << endl;
+        fout << n << "," << mc_E[n] << ","<< mc_M[n] << "," << T << "," << J << "," << len << endl;
     }
     fout.close();
     mc_E.clear();
+    mc_M.clear();
 }
 /*
 void equilibrate(int (&Lattice)[len][len], double T)

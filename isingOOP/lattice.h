@@ -23,7 +23,8 @@ namespace ising {
         int* getNeighborSpins(int i, int j);
         double localEnergy(int i, int j);
         double Energy();
-        void metropolisLoop(int nMC, std::vector<double> &mc_E);
+        double Magnetization();
+        void metropolisLoop(int nMC, std::vector<double> &mc_E, std::vector<double> &mc_M);
         
         private: //used within the class itself only
         int length_;

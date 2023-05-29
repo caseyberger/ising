@@ -99,16 +99,25 @@ namespace ising {
     }
     
     double Lattice::Energy(){
-        double Energy;
+        double E;
         for(int i = 0; i < length_; i++){
             for (int j = 0; j<length_; j++){
-                Energy += Lattice::localEnergy(i,j);
+                E += Lattice::localEnergy(i,j);
             }
         }
-        return Energy;
+        return E;
+    }
+    double Lattice::Magnetization(){
+        double M;
+        for(int i = 0; i < length_; i++){
+            for (int j = 0; j<length_; j++){
+                M += grid_[i][j];
+            }
+        }
+        return M;
     }
     
-    void Lattice::metropolisLoop(int nMC, std::vector<double> &mc_E){
+    void Lattice::metropolisLoop(int nMC, std::vector<double> &mc_E,std::vector<double> &mc_M){
         //adds energy for individual configurations to a vector so we can do stats for that temperature
         for (int n = 0; n < nMC; n++){
 #ifdef TESTING_MODE
@@ -119,6 +128,7 @@ namespace ising {
             std::cout << "Storing energy of current config in vector." << std::endl;
 #endif
             mc_E.push_back(Lattice::Energy());
+            mc_M.push_back(Lattice::Magnetization());
         }
     }
     
