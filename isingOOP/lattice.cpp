@@ -90,6 +90,11 @@ namespace ising {
         return nnSpins;
     }
     
+    int Lattice::getSpin(int i, int j){
+        int spin = grid_[i][j];
+        return spin;
+    }
+    
     double Lattice::localEnergy(int i, int j){
         int *nnSpins = Lattice::getNeighborSpins(i,j);
         double nnsum = nnSpins[0] + nnSpins[1] + nnSpins[2] + nnSpins[3];
@@ -99,7 +104,7 @@ namespace ising {
     }
     
     double Lattice::Energy(){
-        double E;
+        double E = 0.;
         for(int i = 0; i < length_; i++){
             for (int j = 0; j<length_; j++){
                 E += Lattice::localEnergy(i,j);
@@ -108,7 +113,7 @@ namespace ising {
         return E;
     }
     double Lattice::Magnetization(){
-        double M;
+        double M = 0.;
         for(int i = 0; i < length_; i++){
             for (int j = 0; j<length_; j++){
                 M += grid_[i][j];
@@ -125,7 +130,7 @@ namespace ising {
 #endif 
             Lattice::sweepLattice_(); //iterate over the whole lattice, flipping spins if favorable
 #ifdef TESTING_MODE
-            std::cout << "Storing energy of current config in vector." << std::endl;
+            std::cout << "Storing energy and magnetization of current config in vector." << std::endl;
 #endif
             mc_E.push_back(Lattice::Energy());
             mc_M.push_back(Lattice::Magnetization());
@@ -161,18 +166,7 @@ namespace ising {
         }
     }
     
-    void Lattice::sweepLattice_(){
-        //consider making two arrays for i and j, which are shuffled orders of the indices
-        
-        /*std::list<int> i_arr(length_);
-        std::list<int> j_arr[length_];
-        std::iota(i_arr.begin(), i_arr.end(), 1);
-        std::iota(j_arr.begin(), j_arr.end(), 1);
-        
-        shuffle(i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
-        shuffle(j_arr.begin(), j_arr.end(), std::default_random_engine(7812));
-        */
-        
+    void Lattice::sweepLattice_(){        
 #ifdef TESTING_MODE
         std::cout << "Creating vector to store sites." << std::endl;
 #endif

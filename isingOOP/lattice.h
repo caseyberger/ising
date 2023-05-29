@@ -21,6 +21,7 @@ namespace ising {
         void printLattice();
         int* getNeighbors(int i, int j);
         int* getNeighborSpins(int i, int j);
+        int getSpin(int i, int j);
         double localEnergy(int i, int j);
         double Energy();
         double Magnetization();
