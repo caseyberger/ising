@@ -186,7 +186,6 @@ namespace ising {
 #endif
             //the -1 is necessary b/c iota starts at 1 instead of 0
             //Lattice::flipSpin_(i,j);
-            }
         }
 #ifdef TESTING_MODE
         std::cout << "End iteration." << std::endl;
