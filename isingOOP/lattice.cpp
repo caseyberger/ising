@@ -163,20 +163,31 @@ namespace ising {
         shuffle(j_arr.begin(), j_arr.end(), std::default_random_engine(7812));
         */
         
-        
+#ifdef TESTING_MODE
+        std::cout << "Creating vectors to store i and j sites." << std::endl;
+#endif
         std::vector<int> i_arr(length_);
         std::vector<int> j_arr(length_);
         std::iota(i_arr.begin(), i_arr.end(), 1);
         std::iota(j_arr.begin(), j_arr.end(), 1);
         
+#ifdef TESTING_MODE
+        std::cout << "Shuffling vectors with random default engine." << std::endl;
+#endif      
         shuffle(i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
         shuffle(j_arr.begin(), j_arr.end(), std::default_random_engine(8723));
-       
+
+#ifdef TESTING_MODE
+        std::cout << "Iterating over i and j values and flipping spin." << std::endl;
+#endif
         for(unsigned int i = 0; i < i_arr.size(); i++){
             for(unsigned int j = 0; i < j_arr.size(); j++){
                 Lattice::flipSpin_(i_arr[i],j_arr[j]);
             }
         }
+#ifdef TESTING_MODE
+        std::cout << "Clearing vectors to free up memory." << std::endl;
+#endif
         i_arr.clear();
         j_arr.clear();
     }
