@@ -12,6 +12,6 @@ pwd; hostname; date
 
 echo "Running 2D Ising C++ script on a single CPU core"
 
-./ising
+./ising inputs.txt
 
 date
