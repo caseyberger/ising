@@ -40,7 +40,7 @@ double avg(vector<double> sample_vec);
 void print_lattice(int Lattice[len][len]);
 void exact_sol(vector<double> &exact_E);
 void equilibrate(int (&Lattice)[len][len], double T);*/
-void write_to_file(vector<double> &mc_E, double T, double J, int len);
+void write_to_file(vector<double> &mc_E, vector<double> &mc_M, double T, double J, int len);
 int main ()
 {
     int len = 10; //length of lattice
