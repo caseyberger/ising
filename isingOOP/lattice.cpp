@@ -177,7 +177,7 @@ namespace ising {
         for(unsigned int n = 0; n < site_arr.size(); n++){
             int i = site_arr[n]/length_;
             int j = site_arr[n]%length_;
-            //std::cout << "n = " << n << ", and i,j = " << i << ","<< j << std::endl;
+            std::cout << "n = " << n << ", and i,j = " << i << ","<< j << std::endl;
             Lattice::flipSpin_(i,j);
         }
 #ifdef TESTING_MODE
