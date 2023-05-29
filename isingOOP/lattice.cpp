@@ -171,9 +171,9 @@ namespace ising {
         std::iota(site_arr.begin(), site_arr.end(), 1);
         
 #ifdef TESTING_MODE
-        std::cout << "Shuffling vector with random default engine." << std::endl;
+        //std::cout << "Shuffling vector with random default engine." << std::endl;
 #endif      
-        shuffle(site_arr.begin(), site_arr.end(), std::default_random_engine(1232));
+        //shuffle(site_arr.begin(), site_arr.end(), std::default_random_engine(1232));
 
 #ifdef TESTING_MODE
         std::cout << "Iterating over i and j values and flipping spin." << std::endl;
@@ -182,7 +182,7 @@ namespace ising {
 #ifdef TESTING_MODE
             int i = site_arr[n]/length_;
             int j = site_arr[n]%length_;
-            std::cout << i << "," << j << " = " << i << ","<<i << std::endl;
+            std::cout << "n = " << <<n << "," << "i,j = " << i << ","<< j << std::endl;
 #endif
             //the -1 is necessary b/c iota starts at 1 instead of 0
             //Lattice::flipSpin_(i,j);
