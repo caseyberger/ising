@@ -8,7 +8,7 @@ COMMAND=  ising
 
 # special definitions for testing, etc
 
-USE_TEST_PRINT_STATEMENTS ?= TRUE
+USE_TEST_PRINT_STATEMENTS ?= FALSE
 
 ifeq ($(USE_TEST_PRINT_STATEMENTS), TRUE)
 	DEFINES += -DTESTING_MODE
