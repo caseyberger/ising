@@ -20,35 +20,15 @@
 using namespace std;
 using ising::Lattice;
 
-//global variables
-//const int len = 10; //length of lattice
-//const int l_end = len-1; //last spot on lattice
-//const int num = len*len;  //total number of spins
-//double Tmax = 4.0;  //max temp
-//double Tmin = 0.0; //min temp
-//double dT = 0.2; //temperature iterator
-//const int nMC = 10000; //number of monte carlo iterations
-//const int eq_iter = 1000; //number of iterations for equilibration
-//double J = 1.0; //interaction strength
-
 //function declaration
-/*double calc_E(int Lattice[len][len], int i, int j);
-void flip_spin(int (&Lattice)[len][len], int i, int j, double T, double &dE);
-double tot_E(int Lattice[len][len]);
-void mc_sol(vector<double> &mc_E, int (&Lattice)[len][len], vector<double> &temp_vec);
-double avg(vector<double> sample_vec);
-void print_lattice(int Lattice[len][len]);
-void exact_sol(vector<double> &exact_E);
-void equilibrate(int (&Lattice)[len][len], double T);*/
+void read_in_inputs(int argc, char *argv[],int &len, double &J, double &Tmax, double &Tmin, double &dT, int &nMC);
 void write_to_file(vector<double> &mc_E, vector<double> &mc_M, double T, double J, int len);
-int main ()
+int main (int argc, char *argv[])
 {
-    int len = 10; //length of lattice
-    double J = 1.0; //interaction strength
-    int nMC = 200000; //number of monte carlo iterations
-    double Tmax = 4.0;  //max temp
-    double Tmin = 0.0; //min temp
-    double dT = 0.2; //temperature iterator
+    int len,nMc;//length of lattice, number of monte carlo iterations
+    double J, Tmax, Tmin, dT; //interaction strength, max temp, min temp, temperature iterator
+    
+    read_in_inputs(int argc, char *argv[],int &len, double &J, double &Tmax, double &Tmin, double &dT, int &nMC);
     
     Lattice L(len, J, Tmax);
     srand(7); //seed random number
@@ -68,6 +48,68 @@ int main ()
         T -= dT;
     }
     return 0;
+}
+
+void read_in_inputs(int argc, char *argv[],int &len, double &J, double &Tmax, double &Tmin, double &dT, int &nMC)
+{
+    //read in parameters
+#ifdef TESTING_MODE
+    cout << "Function: read_in_inputs" << endl;
+#endif
+    string str, filename;
+    const int n_params = 6;
+    string inputs [n_params] = {"L","interactionJ", "Tmax","Tmin","dT","nMC"};//read in keywords for parameters
+    if (argc != 2){ //exits if input file is not given
+        cerr << "Usage: ./ising input.txt"<< endl << "Exiting program" << endl;
+        exit(10);
+    }
+    else{
+        ifstream input_file(argv[1]);
+        if (!input_file.is_open()){
+            cerr << "input file cannot be opened";
+            exit(10);
+        }
+        else{
+            int count = 0;
+#ifdef TESTING_MODE
+            cout << "Starting param search in file: ";
+            for (int n=0; n<n_params; n++){
+                cout << inputs[n] << ',';
+            }
+            cout << endl;
+#endif  
+            while (count < n_params) {
+                while (getline(input_file, str)) {
+                    //search for params in input
+                    size_t found = str.find(inputs[count]);
+                    size_t start;
+                    if (found != string::npos) {
+                        start = str.find_last_of(' ');
+                        inputs[count] = str.substr(start + 1);
+                        count++;
+                    }
+                    else{
+                        //if your inputs file doesn't have that parameter listed 
+                        cerr << "parameter "<< inputs[count] << " not in input file.";
+                        exit(10);
+                    }
+                }
+            }
+            len = stod(inputs[0]);
+            J = stod(inputs[1]);
+            Tmax = stod(inputs[2]);
+            Tmin = stod(inputs[3]);
+            dT = stod(inputs[4]);
+            nMC = stod(inputs[5]);
+#ifdef TESTING_MODE
+            cout << "parameters acquired: ";
+            for (int n=0; n<n_params; n++){
+                cout << inputs[n] << ',';
+            }
+            cout << endl;
+#endif  
+        }
+    }
 }
 
 void write_to_file(vector<double> &mc_E, vector<double> &mc_M, double T, double J, int len)
@@ -103,22 +145,3 @@ void write_to_file(vector<double> &mc_E, vector<double> &mc_M, double T, double 
     mc_E.clear();
     mc_M.clear();
 }
-/*
-void equilibrate(int (&Lattice)[len][len], double T)
-{
-    //cout << "equilibrate" << endl;
-    double dE = 0.0;
-    int count = 0;
-    while (count < eq_iter)
-    {
-        for (int i = 0; i < len; i++)
-        {
-            for (int j = 0; j < len; j++)
-            {
-                flip_spin(Lattice, i, j, T, dE);
-                count++;
-            }
-        }
-    }
-}
-*/
