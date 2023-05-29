@@ -178,7 +178,7 @@ namespace ising {
 #ifdef TESTING_MODE
         std::cout << "Iterating over i and j values and flipping spin." << std::endl;
 #endif
-        for(unsigned int n = 0; i < site_arr.size(); n++){
+        for(unsigned int n = 0; n < site_arr.size(); n++){
 #ifdef TESTING_MODE
             int i = site_arr[n]/length_;
             int j = site_arr[n]%length_;
