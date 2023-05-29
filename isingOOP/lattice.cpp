@@ -183,9 +183,10 @@ namespace ising {
         for(unsigned int i = 0; i < i_arr.size(); i++){
             for(unsigned int j = 0; i < j_arr.size(); j++){
 #ifdef TESTING_MODE
-        std::cout << i << "," << j << " = " << i_arr[i] << ","<<j_arr[j] << std::endl;
+                std::cout << i << "," << j << " = " << i_arr[i] << ","<<j_arr[j] << std::endl;
 #endif
-                Lattice::flipSpin_(i_arr[i],j_arr[j]);
+                //the -1 is necessary b/c iota starts at 1 instead of 0
+                Lattice::flipSpin_(i_arr[i]-1,j_arr[j]-1);
             }
         }
 #ifdef TESTING_MODE
