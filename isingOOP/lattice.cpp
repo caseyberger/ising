@@ -111,7 +111,13 @@ namespace ising {
     void Lattice::metropolisLoop(int nMC, std::vector<double> &mc_E){
         //adds energy for individual configurations to a vector so we can do stats for that temperature
         for (int n = 0; n < nMC; n++){
+#ifdef TESTING_MODE
+            std::cout << "Random sweep over lattice." << std::endl;
+#endif 
             Lattice::sweepLattice_(); //iterate over the whole lattice, flipping spins if favorable
+#ifdef TESTING_MODE
+            std::cout << "Storing energy of current config in vector." << std::endl;
+#endif
             mc_E.push_back(Lattice::Energy());
         }
     }

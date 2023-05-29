@@ -51,7 +51,6 @@ int main ()
     double dT = 0.2; //temperature iterator
     
     Lattice L(len, J, Tmax);
-    cout << "Length of lattice L = " << L.getLength() << endl;
     srand(7); //seed random number
     double T = Tmax; //current temp
     //temperature loop
@@ -59,7 +58,9 @@ int main ()
         L.setTemperature(T);
         L.initialize();
         cout << "Initialized"<<endl;
+#ifdef TESTING_MODE
         L.printLattice();
+#endif 
         vector<double> mc_E; //stores energies for monte carlo loop at one T
         L.metropolisLoop(nMC, mc_E);
         write_to_file(mc_E,T,J,len);

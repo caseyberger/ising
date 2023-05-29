@@ -6,12 +6,22 @@ MAKEFILE= make_ising
 # The command you type to run the program (executable name)
 COMMAND=  ising
 
+# special definitions for testing, etc
+
+USE_TEST_PRINT_STATEMENTS ?= TRUE
+
+ifeq ($(USE_TEST_PRINT_STATEMENTS), TRUE)
+	DEFINES += -DTESTING_MODE
+endif
+
+
 ########################################################################### 
 #compiler
 CXX= g++
 
 #compiler flags
 CXXFLAGS=  -g -O2
+CXXFLAGS += $(DEFINES) 
 
 # Instructions to compile and link 
 ising: ising.o lattice.o 
