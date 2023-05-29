@@ -164,38 +164,36 @@ namespace ising {
         */
         
 #ifdef TESTING_MODE
-        std::cout << "Creating vectors to store i and j sites." << std::endl;
+        std::cout << "Creating vector to store sites." << std::endl;
 #endif
-        std::vector<int> i_arr(length_);
-        std::vector<int> j_arr(length_);
-        std::iota(i_arr.begin(), i_arr.end(), 1);
-        std::iota(j_arr.begin(), j_arr.end(), 1);
+        int nsites = length_*length_;
+        std::vector<int> site_arr(nsites);
+        std::iota(site_arr.begin(), site_arr.end(), 1);
         
 #ifdef TESTING_MODE
-        std::cout << "Shuffling vectors with random default engine." << std::endl;
+        std::cout << "Shuffling vector with random default engine." << std::endl;
 #endif      
-        shuffle(i_arr.begin(), i_arr.end(), std::default_random_engine(1232));
-        shuffle(j_arr.begin(), j_arr.end(), std::default_random_engine(8723));
+        shuffle(site_arr.begin(), site_arr.end(), std::default_random_engine(1232));
 
 #ifdef TESTING_MODE
         std::cout << "Iterating over i and j values and flipping spin." << std::endl;
 #endif
-        for(unsigned int i = 0; i < i_arr.size(); i++){
-            for(unsigned int j = 0; i < j_arr.size(); j++){
+        for(unsigned int n = 0; i < site_arr.size(); n++){
 #ifdef TESTING_MODE
-                std::cout << i << "," << j << " = " << i_arr[i] << ","<<j_arr[j] << std::endl;
+            int i = site_arr[n]/length_;
+            int j = site_arr[n]%length_;
+            std::cout << i << "," << j << " = " << i << ","<<i << std::endl;
 #endif
-                //the -1 is necessary b/c iota starts at 1 instead of 0
-                Lattice::flipSpin_(i_arr[i]-1,j_arr[j]-1);
+            //the -1 is necessary b/c iota starts at 1 instead of 0
+            //Lattice::flipSpin_(i,j);
             }
         }
 #ifdef TESTING_MODE
         std::cout << "End iteration." << std::endl;
 #endif
 #ifdef TESTING_MODE
-        std::cout << "Clearing vectors to free up memory." << std::endl;
+        std::cout << "Clearing vector to free up memory." << std::endl;
 #endif
-        i_arr.clear();
-        j_arr.clear();
+        site_arr.clear();
     }
 }
