@@ -186,6 +186,9 @@ namespace ising {
             }
         }
 #ifdef TESTING_MODE
+        std::cout << "End iteration." << std::endl;
+#endif
+#ifdef TESTING_MODE
         std::cout << "Clearing vectors to free up memory." << std::endl;
 #endif
         i_arr.clear();
